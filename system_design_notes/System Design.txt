@@ -1,0 +1,186 @@
+Computer Architecture:
+-> Binary data - 0 / 1
+bit, byte, KB, MB, GB, TB
+
+-> Disk Storage: HDD / SDD
+
+-> RAM: Holds the data structures, variables, and application data for the system.
+-> Cache: Used for faster retrieval of data by the CPU (L1, L2, L3).
+
+High Level Architecture of a Production App:
+-> Continuous Integration / Continuous Deployment: Primarily for the process of testing and going along series of pipelining to reach the deployment end or production end (Jenkins, GitHub Actions).
+-> Load Balancer: To handle multiple users requests in the network (nginx).
+-> Storage: For the purpose of large external storage of the data.
+-> Logging and Monitoring: (PM2 for the Backend, Sentry for the frontend).
+-> Alert Services: In case of any system design failures, with push notifications to clients.
+-> Slack app for co-ordinating the developers to look into the issue.
+
+* Staging is the environment where the developers perform the testing in cases of any bugs or errors encountered during the debugging process, to ensure that issues are properly resolved before adding it to the production environment.
+
+What makes a good design in system architecture?
+* Scalability
+* Maintainability
+* Efficiency
+* Reliability
+
+Moving data: Seamless transmission of data from client to server and vice-versa.
+Storing data: Understanding the access patterns, indexing strategies, and backup solutions.
+Transforming data: Transforming the data into useful information.
+
+CAP / Brewer's Theorem: Consistency, Availability, and Partition Tolerance.
+According to this Theorem, only two out of three can be achieved in a distributed system (CA, CP, AP).
+
+Hence, the scenario always lies in finding the best solution for the specific use case.
+
+Availability is measured in terms of percentages (based on the system reliabilty).
+Uptime - Service Level Objectives (SLO), which states the services objectives to be followed.
+Downtime - Service Level Agreements (SLA), which talks about the agreements offered over the services (i.e talks about the minimum level of service committed for provision).
+
+-> Server Availability: 
+* Reliability, which talks about how consistent the systems are
+* Fault Tolerance, which talks about how systems are resistant to faults 
+* Redundancy, which talks about the replicated copies for immediate handover to another server for user requests.
+
+-> Server Speed: 
+* Throughput, i.e how much data our system can handle over a certain period of time.
+(RPS, QPS, B/s).
+* Latency, i.e how long it takes to handle a single request.
+(Throughput is inversely proportional to Latency).
+
+IP Address: Unique address to identify a user in the network.
+IPv4: 32-bit address, IPv6: 128-bit address.
+
+IP Protocol: Set of rules that defines how data is sent and received.
+
+TCP: (Port No., Sequence No., Flags etc), Three-way handshake (SYN, SYN + ACK, ACK)
+UDP: Faster than TCP, but involves packet loss.
+
+DNS: Translates the URL to the IP address.
+A record, which stores the names for an IPv4 address.
+AAAA record, which stores the names for an IPv6 address.
+
+Networking Infrastructure:
+-> Public and Private IP addresses
+-> Static / Dynamic IP addresses
+
+Networks like LAN are protected by a firewall, which monitors and controls incoming and outgoing traffic based on the security policies.
+
+HTTP: Hypertext Transfer Protocol, stateless transmission of data between two communicating nodes.
+* Success codes: 2** type codes.
+* Redirection codes: 3** type codes.
+* Client Error codes: 4** type codes.
+* Server Error codes: 5** type codes.
+
+WebSockets: Two-way communication protocol, for continuous deployment, and debugging. Helpful in chat applications, and stock-related updates for communication.
+
+SMTP: Email Transmission across the internet.
+IMAP: Used to retrieve emails from a server.
+POP3: Used for downloading emails from a server.
+
+FTP: For transferring files over the internet.
+SSH: For command-line login and file-transfer (secure-version).
+
+WebRTC: Enables browser-to-browser applications for voice calling, video chat, and file sharing.
+
+MQTT: Lightweight messaging protocol (Message Queuing Telemetry Protocol)
+AMQP: Protocol for message-oriented middleware (Advanced Message Queuing Protocol)
+
+RPC: Remote Procedure Call, to invoke a function from one node and execute the function at other nodes.
+
+API design:
+-> CRUD operations:
+* Create: /api/products - POST method
+* Read: /api/products - GET method
+* Update: /api/products/:id - PUT method
+* Delete: /api/products/:id - DELETE method
+
+REST (Representational State Transfer): Stateless, Standard HTTP methods, Over-fetching and under-fetching present, JSON for data exchange.
+
+GraphQL: Avoids over-fetching and under-fetching problems, strongly typed schema based queries, queries can impact server performance, only POST requests are performed, responds with HTTP 200.
+
+gRPC: Built on HTTP/2, multiplexing/server push, uses protocol buffers, efficient, less human-readable, requires HTTP/2.
+
+API must support Backward compatibility and Versioning for catering to all kinds of clients, i.e say for REST API, current clients can have requests as /api/v2/products and old clients can have requests as /api/v1/products. Similarly, for GraphQL, products and products_v2 can be for two different versions.
+
+Another good practice is to set the rate limitations for an API for the HTTP requests. CORS settings, to check which domains can be accessed by the clients.
+
+Caching: Storing a copy of the data in a temporary storage.
+* Benefits: Reduced Latency, Lowered Server Load, Improved UX.
+
+* Browser Caching, over the client's computer
+Cache Ratio = Cache Hits / (Cache Hits + Cache Misses)
+
+* Server Caching, to store the cache over a cache server for retrieval of frequent information efficiently from the database. Scenario where the data is retrieved from the database and sent to the server, redirected to the cache, is called 'Write-Around-Cache'. The reverse traversal is called 'Write-Through-Cache'. Write-Back-Cache involves caching from the main server to the cache, cache server to the database.
+
+Eviction Policies; are used primarily to reduce the space in caches to incorporate space for additional data. These policies includes Least-Recently-Used, First-In-First-Out, and Least-Frequently-Used etc.
+
+* Database Caching, where the cache server takes up the queries for the information retrieval, and if it is not present, it is cached from the database and stored for future use.
+
+Content-Delivery Networks, which is a network of servers, having push-based or pull-based mechanisms.
+We use CDN when,
+i. Delivering static assets like images, CSS files, JS files etc.
+ii. High availability and performance for users is ensured across different geographical locations.
+iii. Reduction of load on the origin server is a priority.
+Benefits: Reduced Latency, High Availability, Improved Security
+
+Use Origin Server when,
+i. Serving dynamic content that changes frequently or is personalized for individual users.
+ii. Handling tasks that require real-time processing or access to up-to-date data.
+iii. Application requires complex server-side logic that cannot be replicated or cached by CDN.
+
+Proxy Servers: Servers that act as intermediates between clients and servers for the purpose of caching resources, anonymizing requests, and load balancing etc.
+* Forward Proxy, placed in front of clients for forwarding their request to the servers.
+Use-Cases: Instagram proxies, Caching, Internet Use Control, Anonymizing Web Access etc.
+
+* Reverse Proxy, placed in front of one or more servers, for load balancing and security.
+Use-Cases: Load Balancers, CDN's, Web-Applications Firewalls, SSL Offloading etc.
+
+* Open Proxy, which is open for all clients, for private requests.
+* Transparent Proxy, involving transparent transmissions, which is used for caching and content filtering etc.
+* Anonymous Proxy, which hides the original IP address.
+* Distorting Proxy, which shows the incorrect IP address.
+* High Anonymity Proxy, which creates difficulty in tracing real IP address.
+
+Load Balancers: Proxy Servers that balances the load of network traffic across all the servers in the network.
+Common Strategies and algorithms:
+-> Round Robin: Sequential assignment of load across the servers, and returning back to the first server after the last server.
+-> Least Connection: Directing the traffic to the servers with only few active connections.
+-> Least Response Time: Traffic distribution to the servers which require lesser response time.
+-> IP Hashing: Hashing over the server's IP addresses.
+-> Weighted Algorithms: Above strategies are assigned accordingly with respect to the performance metrics.
+-> Geographic: To reach out to nearest server.
+-> Consistent Hashing: Hashing using a hash function.
+
+Hardware Load Balancers: F5 BigIP, Citrix
+Software Load Balancers: HAPROXY, nginx
+Cloud-Based Load Balancers: AWS ELB, Azure LoadBalancer, GCP LoadBalancer
+
+To prevent single-point-of-failure for a load balancer, redundant load balancers must be implemented to improve availability, included with the necessary server health checks and monitoring, also with auto-scaling features.
+
+Databases:
+-> Relational (SQL): In form of tables, with relationships and constraints (PostgreSQL, MySQL, SQLite).
+Great for complex transactions, complex queries, and integrity.
+A - Atomicity, C - Consistency, I - Isolation, D - Durability
+
+-> Non-Relational (NoSQL): Multiple Forms like Key-value pairs, document-based, graph-based etc, ideal for sacalability, quick iteration, and simple queries.
+
+-> In-Memory Databases: For in-memory calculations for queries.
+
+Vertical Scaling (Scale-Up):
+-> Increasing CPU Power
+-> Adding more RAM
+-> Adding more disk storage
+-> Upgrading network
+
+Horizontal Scaling (Scale-Out):
+-> Database Sharding, which involves splitting the multiple entries of a dataset across multiple data servers.
+Strategies: Range-based sharding, based on the range of a given key; Directory -base Sharding, which is a lookup service to direct traffic to the database; Geographical Sharding, which is based on geographical location.
+
+-> Replication, which involves replication of copies of data to get more availability of data.
+Master-Slave architecture, where the master can read/write but the slave can only read.
+Master-Master architecture, where the master can read/write.
+
+Database Performance:
+-> Caching: Using cached data for faster query resolution.
+-> Indexing: To map out for indexing certain data indices for faster retrieval.
+-> Query Optimization: Optimizing the Query resolution procedure for faster querying.

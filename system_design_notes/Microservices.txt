@@ -1,0 +1,34 @@
+Monolith Architecture:
+-> All components in a single unit, app written and deployed under a single package, so testing becomes a problem.
+-> Challenges:
+* Complex app.
+* Parts of app are tangled sometimes.
+* Scale app only, but not only a single service.
+* Mismatches in versions for services.
+* Release process is longer.
+* Testing is a herculean task in case of this architecture.
+
+Microservices Architecture:
+-> Splitting the application into smaller, independent services.
+Split based on business functionalities(products, shopping_cart, user, checkout etc. for a online store), where each service provides only one function. Every service must be self-contained and independent (loosely coupling).
+
+-> Services can be built and deployed separately.
+
+-> Each microservice has it's own version.
+
+Communication between services:
+-> Communication using API calls: Each service has it's own API, where they can communicate by sending HTTP requests to the respective API endpoint, synchronous communication, waits for the response.
+
+-> Message Queue: Communication via messages through publish/subscribe mechanisms or point-to-point messaging.
+
+-> Service Mesh: Mesh network layer provides the necessary help for the communication between services.
+
+Each microservice team can choose their own stack, with independent working.
+
+Challenges of microservices:
+-> Configuration over the communication between the services.
+-> Difficult to monitor multiple instance of a service distributed across servers (err. 500).
+
+Tools for microservices: Kubernetes
+
+CI/CD Pipeline, Polyrepo
