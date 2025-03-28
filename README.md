@@ -6,4 +6,6 @@ Following implementations to be added to the current application:
   <li>Backend SQL database for user-data management and NoSQL databases for the Stocks historical data and News Sentiment data.</li>
   <li>Development of the Web Interface using Vue.js</li>
 </ol>
+
+## Concept Map
 <img src = 'project_docs/Project Concept Map.png'>
